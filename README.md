@@ -1,17 +1,17 @@
 # pyNuc
 let's you control the LEDs from INTEL NUCs under Linux
 
-** WARNING: THIS IS WORK IN PROGRESS **
+**WARNING: THIS IS WORK IN PROGRESS**
 
-** IT HAS NOT BEEN TESTED AT ALL **
+**IT HAS NOT BEEN TESTED AT ALL**
 
-** DO NOT USE IN PRODUCTION **
+**DO NOT USE IN PRODUCTION**
 
-It does this by providing a simple wrapper for this dynamic linux library:
-https://github.com/milesp20/intel_nuc_led/
+It does this by providing a simple wrapper for this dynamic linux library: https://github.com/nomego/intel_nuc_led/blob/master/README.md
+
 
 ## Installation
-Please install the following library: https://github.com/milesp20/intel_nuc_led/ 
+Please install the following library: https://github.com/nomego/intel_nuc_led/blob/master/README.md
 
 ## Usage
 Usage is quite simple:
