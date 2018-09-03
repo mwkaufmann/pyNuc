@@ -1,5 +1,5 @@
 # pyNuc
-let's you control the LEDs from INTEL NUCs (linux only)
+python library to control LEDs from INTEL NUCs (linux only)
 
 **WARNING: THIS IS WORK IN PROGRESS**
 
