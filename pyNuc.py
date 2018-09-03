@@ -1,5 +1,6 @@
 import os
 from enum import IntEnum
+import six
 
 INSTALL_URL = "https://github.com/nomego/intel_nuc_led"
 NUC_PATH = "/proc/acpi/nuc_led"
@@ -9,14 +10,15 @@ def check_installation():
     """ checks if the INTEL_NUC_LEDs are available """
     if not os.path.isfile(NUC_PATH):
         print("cannot find INTEL NUC LEDs in this system!")
-        print(f"please install the INTEL_NUC_LED kernel module to make them available.\r\nFor instructions visit {INSTALL_URL}")
+        print(
+            "please install the INTEL_NUC_LED kernel module to make them available.\r\nFor instructions visit: " + INSTALL_URL)
         raise SystemExit()
 
 
 def warn_user():
     while True:
         warning = "WARNING, this library has not been tested and might not work!\r\nType: 'ok' to continue: "
-        result = input(warning)
+        result = six.input(warning)
         if result.lower() == "ok":
             break
 
@@ -65,30 +67,30 @@ class NUCLed(object):
         assert (0 <= g <= 255)
         assert (0 <= b <= 255)
         cmds = [
-            f"set_indicator_value,{self.led_id},{self.mode},3,{r}",
-            f"set_indicator_value,{self.led_id},{self.mode},4,{g}",
-            f"set_indicator_value,{self.led_id},{self.mode},5,{b}",
+            "set_indicator_value,{},{},3,{}".format(self.led_id, self.mode, r),
+            "set_indicator_value,{},{},4,{}".format(self.led_id, self.mode, g),
+            "set_indicator_value,{},{},5,{}".format(self.led_id, self.mode, b),
         ]
         for cmd in cmds:
             self.update_settings(cmd)
 
     def set_brightness(self, brightness):
         assert (0 <= brightness <= 100)
-        cmd = f"set_indicator_value,{self.led_id},{self.mode},{Operation.SET_BRIGHTNESS},{brightness}"
+        cmd = "set_indicator_value,{},{},{},{}".format(self.led_id, self.mode, Operation.SET_BRIGHTNESS, brightness)
         self.update_settings(cmd)
 
     def set_blink_mode(self, blink_mode):
         assert (0 <= blink_mode <= 3)
-        cmd = f"set_indicator_value,{self.led_id},{self.mode},{Operation.SET_BLINK_MODE},{blink_mode}"
+        cmd = "set_indicator_value,{},{},{},{}".format(self.led_id, self.mode, Operation.SET_BLINK_MODE, blink_mode)
         self.update_settings(cmd)
 
     def set_blink_rate(self, rate):
         assert (0 <= rate <= 10)
-        cmd = f"set_indicator_value,{self.led_id},{self.mode},{Operation.SET_BLINK_RATE},{rate}"
+        cmd = "set_indicator_value,{},{},{},{}".format(self.led_id, self.mode, Operation.SET_BLINK_RATE)
         self.update_settings(cmd)
 
     def set_software_control(self):
-        cmd = f"set_indicator,{self.led_id},{self.mode}"
+        cmd = "set_indicator,{},{}".format(self.led_id, self.mode)
         self.update_settings(cmd)
 
     def update_settings(self, settings):
@@ -99,26 +101,26 @@ class NUCLed(object):
 class PowerLED(NUCLed):
     def __init__(self):
         self.led_id = LEDType.POWER
-        super().__init__()
+        super(PowerLED, self).__init__()
 
 
 class RingLED(NUCLed):
     def __init__(self):
         self.led_id = LEDType.RING
-        super().__init__()
+        super(RingLED, self).__init__()
 
 
 class SkullLED(NUCLed):
     def __init__(self):
         self.led_id = LEDType.SKULL
-        super().__init__()
+        super(SkullLED, self).__init__()
 
 
 class EyesLED(NUCLed):
     def __init__(self):
         self.led_id = LEDType.EYES
-        super().__init__()
+        super(EyesLED, self).__init__()
 
 
 check_installation()
-warn_user()
+# warn_user()
