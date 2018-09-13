@@ -86,7 +86,7 @@ class NUCLed(object):
 
     def set_blink_rate(self, rate):
         assert (0 <= rate <= 10)
-        cmd = "set_indicator_value,{},{},{},{}".format(self.led_id, self.mode, Operation.SET_BLINK_RATE)
+        cmd = "set_indicator_value,{},{},{},{}".format(self.led_id, self.mode, Operation.SET_BLINK_RATE, rate)
         self.update_settings(cmd)
 
     def set_software_control(self):
